@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Eventos - The Imortal Eagles</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a001f, #4b0082);
+      color: white;
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    .evento {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 Eventos da Comunidade</h1>
+  <div id="eventos"></div>
+
+  <script>
+    fetch("eventos.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("eventos");
+        if (data.length === 0) {
+          container.innerHTML = "<p>Sem eventos cadastrados.</p>";
+        } else {
+          data.forEach(evento => {
+            const div = document.createElement("div");
+            div.className = "evento";
+            div.innerHTML = `
+              <h2>${evento.titulo}</h2>
+              <p><strong>Data:</strong> ${evento.data}</p>
+              <p>${evento.descricao}</p>
+            `;
+            container.appendChild(div);
+          });
+        }
+      });
+  </script>
+</body>
+</html>
